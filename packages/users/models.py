@@ -3,6 +3,8 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
+from packages.users import Manager
+
 
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
@@ -14,11 +16,18 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=50, unique=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50, blank=True)
+    last_name = models.CharField(max_length=50, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
 
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'username'
+    objects = Manager.UserManager()
+
+    #para consola
+    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
         return self.username
