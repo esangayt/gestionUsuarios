@@ -124,4 +124,5 @@ dmypy.json
 .pyre/
 
 .idea
+secret.json
 **/packages/*/migrations/

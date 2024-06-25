@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+from django.core.exceptions import ImproperlyConfigured
 from unipath import Path
+import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).ancestor(3)
@@ -19,7 +20,18 @@ BASE_DIR = Path(__file__).ancestor(3)
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2f1b#n@2b7d0ch*dik*n8ys$3bj9ih(!jaq*3m958buko+i%ia'
+with open('secret.json') as f:
+    secret = json.loads(f.read())
+
+
+def get_secret(secret_name, secrets=secret):
+    try:
+        return secrets[secret_name]
+    except:
+        raise ImproperlyConfigured(f'Set the {secret_name} secret variable')
+
+
+SECRET_KEY = get_secret('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
