@@ -6,10 +6,10 @@
 </head>
 <body>
     <h1>Home</h1>
-    <p>Welcome to the home page</p>
+    <p>Welcome: {{ user }} to the home page</p>
     
     <ul>
-        <li><a href="#">Cerrar sessión</a></li>
+        <li><a href="{% url 'users:salir' %}">Cerrar sessión</a></li>
         <li><a href="#">Actualizar Datos</a></li>
     </ul>
 </body>
