@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from packages.users.views import CreaterUserView
+
+app_name = 'users'
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('packages.users.urls')),
-    path('', include('packages.home.urls'))
+    path('nuevoUsuario/', CreaterUserView.as_view(), name='register')
 ]

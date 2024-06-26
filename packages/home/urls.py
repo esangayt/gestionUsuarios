@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from packages.home.views import HomePage
+from packages.users.views import CreaterUserView
+
+app_name = 'home'
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('packages.users.urls')),
-    path('', include('packages.home.urls'))
+    path('bienvenido/', HomePage.as_view(), name='welcome')
 ]
