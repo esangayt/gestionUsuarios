@@ -11,6 +11,7 @@ from django.views.generic.edit import (
 from packages.users.forms import UserRegisterForm, LoginForm
 from packages.users.models import User
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # class CreaterUserView(CreateView):
 #   template_name = 'users/create.html'

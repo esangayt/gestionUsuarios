@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from packages.home.views import HomePage
+from packages.home.views import HomePage, TemplatePruebaMixin
 from packages.users.views import CreaterUserView
 
 app_name = 'home'
 
 urlpatterns = [
-    path('bienvenido/', HomePage.as_view(), name='welcome')
+    path('bienvenido/', HomePage.as_view(), name='welcome'),
+    path('mixin/', TemplatePruebaMixin.as_view(), name='mixin')
 ]
