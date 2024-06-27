@@ -74,3 +74,44 @@ class LoginForm(forms.Form):
             raise forms.ValidationError('Usuario o contraseña incorrectos')
 
         return self.cleaned_data
+
+
+class UpdatePasswordForm(forms.Form):
+    password = forms.CharField(
+        label='Contraseña',
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Contraseña actual',
+            }
+        )
+    )
+
+    new_password = forms.CharField(
+        label='Nueva contraseña',
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Nueva contraseña',
+            }
+        )
+    )
+
+    new_password2 = forms.CharField(
+        label='Repetir nueva contraseña',
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Repetir nueva contraseña',
+            }
+        )
+    )
+
+    def clean_new_password2(self):
+        new_password = self.cleaned_data['new_password']
+        new_password2 = self.cleaned_data['new_password2']
+
+        if new_password != new_password2:
+            raise forms.ValidationError('Las contraseñas no coinciden')
+
+        return new_password2
