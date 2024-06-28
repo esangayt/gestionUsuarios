@@ -115,3 +115,24 @@ class UpdatePasswordForm(forms.Form):
             raise forms.ValidationError('Las contraseñas no coinciden')
 
         return new_password2
+
+class ValidateCodeForm(forms.Form):
+    codregistro = forms.CharField(required=True)
+
+    def __init__(self, pk, *args, **kwargs):
+        self.pk = pk #recibe de las urls
+        print("sss")
+        super(ValidateCodeForm, self).__init__(*args, **kwargs)
+
+    def clean_codregistro(self):
+        print("---")
+        codregistro = self.cleaned_data['codregistro']
+        print("validado")
+        if len(codregistro) != 6:
+            raise forms.ValidationError('El código de registro debe tener 6 caracteres')
+
+        if not User.objects.cof_validate(self.pk, codregistro):
+            raise forms.ValidationError('El código de registro es incorrecto')
+
+        return codregistro
+

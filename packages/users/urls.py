@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from packages.users.views import (
-    CreaterUserView, LoginUser, LogoutView, UpdatePasswordView
+    CreaterUserView, LoginUser, LogoutView, UpdatePasswordView, ValidateCodeView
 )
 
 app_name = 'users'
@@ -27,5 +27,6 @@ urlpatterns = [
     path('nuevoUsuario/', CreaterUserView.as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='salir'),
-    path('update/', UpdatePasswordView.as_view(), name='update')
+    path('update/', UpdatePasswordView.as_view(), name='update'),
+    path('user-verification/<int:pk>', ValidateCodeView.as_view(), name='user_verification'),
 ]
