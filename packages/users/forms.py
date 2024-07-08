@@ -116,6 +116,7 @@ class UpdatePasswordForm(forms.Form):
 
         return new_password2
 
+
 class ValidateCodeForm(forms.Form):
     codregistro = forms.CharField(required=True)
 

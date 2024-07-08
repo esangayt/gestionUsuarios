@@ -89,7 +89,12 @@ class UpdatePasswordView(LoginRequiredMixin, FormView):
         user = self.request.user
         password = form.cleaned_data['password']
 
-        user = authenticate(username=user, password=password)
+        user = authenticate(username=user.username, password=password)
+
+        #error if authenticate fails
+        if not user:
+            form.add_error('password', 'Contraseña actual incorrecta')
+            return self.form_invalid(form)
 
         if user:
             new_password = form.cleaned_data['new_password']
@@ -118,7 +123,7 @@ class ValidateCodeView(FormView):
     def form_valid(self, form):
         user_id = self.kwargs['pk']
         codigo = form.cleaned_data['codregistro']
-        print(user_id, codigo)
+
         user = User.objects.get(id=user_id, codregistro=codigo)
         user.is_active = True
         user.save()
